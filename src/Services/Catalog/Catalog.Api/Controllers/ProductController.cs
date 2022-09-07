@@ -1,6 +1,6 @@
 using System.Net;
-using Catalog.Api.Business.Contracts;
-using Catalog.Api.Data.Models;
+using Catalog.Application.Data;
+using Catalog.Application.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Catalog.Api.Controllers

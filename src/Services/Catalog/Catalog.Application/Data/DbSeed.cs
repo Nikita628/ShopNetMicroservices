@@ -1,7 +1,6 @@
-using Catalog.Api.Data.Models;
 using MongoDB.Driver;
 
-namespace Catalog.Api.Data.Utils
+namespace Catalog.Application.Data
 {
     public static class DbSeed
     {

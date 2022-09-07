@@ -1,4 +1,4 @@
-namespace Catalog.Api.Models 
+namespace Catalog.Application.Models 
 {
     public class DatabaseSettings
     {

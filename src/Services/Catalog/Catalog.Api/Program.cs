@@ -1,7 +1,5 @@
-using Catalog.Api.Business.Contracts;
-using Catalog.Api.Business.Repositories;
-using Catalog.Api.Data;
-using Catalog.Api.Data.Contracts;
+using Catalog.Application.Data;
+using Catalog.Application.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,18 +8,20 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c => {
+    c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "Catalog.Api", Version = "v1" });
+});
 
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
-builder.Services.AddScoped<ICatalogContext, CatalogContext>();
+builder.Services.AddSingleton<ICatalogContext, CatalogContext>();
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment() || app.Environment.EnvironmentName == "Local")
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Swagger"));
 }
 
 app.UseHttpsRedirection();

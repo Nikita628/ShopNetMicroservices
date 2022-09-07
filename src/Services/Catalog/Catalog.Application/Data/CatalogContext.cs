@@ -1,16 +1,14 @@
-using Catalog.Api.Data.Contracts;
-using Catalog.Api.Data.Models;
-using Catalog.Api.Data.Utils;
-using Catalog.Api.Models;
+using Catalog.Application.Models;
 using MongoDB.Driver;
+using Microsoft.Extensions.Configuration;
 
-namespace Catalog.Api.Data
+namespace Catalog.Application.Data
 {
     public class CatalogContext : ICatalogContext 
     {
         public CatalogContext(IConfiguration configuration)
         {
-            var settings = configuration.GetValue<DatabaseSettings>("DatabaseSettings");
+            var settings = configuration.GetRequiredSection("DatabaseSettings").Get<DatabaseSettings>();
             var client = new MongoClient(settings.ConnectionString);
             var database = client.GetDatabase(settings.DatabaseName);
 

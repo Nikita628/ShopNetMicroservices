@@ -1,6 +1,7 @@
-using Catalog.Api.Data.Models;
 
-namespace Catalog.Api.Business.Contracts
+using Catalog.Application.Data;
+
+namespace Catalog.Application.Repositories
 {
     public interface IProductRepository
     {

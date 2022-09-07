@@ -1,2 +1,4 @@
 src/Services/Catalog/Catalog.Api/bin
 src/Services/Catalog/Catalog.Api/obj
+src/Services/Catalog/Catalog.Application/obj
+src/Services/Catalog/Catalog.Application/bin

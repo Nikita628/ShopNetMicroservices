@@ -1,0 +1,7 @@
+// to run a project with a certain launch profile from launchSettings.json
+dotnet run --project Services/Catalog/Catalog.Api/Catalog.Api.csproj --launch-profile Catalog.Api.Local
+
+// to add a package to the project
+dotnet add package MongoDb.Driver
+dotnet add Services/Catalog/Catalog.Api/Catalog.Api.csproj package Swashbuckle.AspNetCore
+

@@ -1,9 +1,7 @@
-using Catalog.Api.Business.Contracts;
-using Catalog.Api.Data.Contracts;
-using Catalog.Api.Data.Models;
+using Catalog.Application.Data;
 using MongoDB.Driver;
 
-namespace Catalog.Api.Business.Repositories
+namespace Catalog.Application.Repositories
 {
     public class ProductRepository : IProductRepository
     {
