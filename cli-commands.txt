@@ -14,3 +14,9 @@ docker-compose -f docker-compose.yml -f docker-compose.debug.yml up -d
 
 // to stop all containers defined in docker-compose file
 docker-compose -f docker-compose.yml -f docker-compose.debug.yml down
+
+// to connect a container to a network (might be useful to debug etc)
+docker network connect networkNameOrId containerNameOrId
+
+// to get comprehensive container info in a json format
+docker inspect containerNameOrId
