@@ -1,7 +1,5 @@
-# docker container - environment that contains your running app and all necessary dependencies (i.e. host)
-# a container - can contain one or more images
-
-# an image - an app and dependencies
+# docker container - environment that contains your running app (image of an app)
+# image - app and dependencies
 
 # ----------------------------------------------------------------------------------------
 
