@@ -2,7 +2,7 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "build",
+            "label": "build-catalog",
             "command": "dotnet",
             "type": "process",
             "args": [
@@ -14,7 +14,7 @@
             "problemMatcher": "$msCompile"
         },
         {
-            "label": "publish",
+            "label": "publish-catalog",
             "command": "dotnet",
             "type": "process",
             "args": [
@@ -26,7 +26,7 @@
             "problemMatcher": "$msCompile"
         },
         {
-            "label": "watch",
+            "label": "watch-catalog",
             "command": "dotnet",
             "type": "process",
             "args": [
@@ -39,9 +39,9 @@
         },
         {
             "type": "docker-build",
-            "label": "docker-build: debug",
+            "label": "docker-build: debug-catalog",
             "dependsOn": [
-                "build"
+                "build-catalog"
             ],
             "dockerBuild": {
                 "tag": "shopnetmicroservices:dev",
@@ -56,9 +56,9 @@
         },
         {
             "type": "docker-build",
-            "label": "docker-build: release",
+            "label": "docker-build: release-catalog",
             "dependsOn": [
-                "build"
+                "build-catalog"
             ],
             "dockerBuild": {
                 "tag": "shopnetmicroservices:latest",
@@ -72,11 +72,13 @@
         },
         {
             "type": "docker-run",
-            "label": "docker-run: debug",
+            "label": "docker-run: debug-catalog",
             "dependsOn": [
-                "docker-build: debug"
+                "docker-build: debug-catalog"
             ],
-            "dockerRun": {},
+            "dockerRun": {
+                // "network": "" - set network here, for example to connect to a DB container
+            },
             "netCore": {
                 "appProject": "${workspaceFolder}/src/Services/Catalog/Catalog.Api/Catalog.Api.csproj",
                 "enableDebugging": true
@@ -84,9 +86,9 @@
         },
         {
             "type": "docker-run",
-            "label": "docker-run: release",
+            "label": "docker-run: release-catalog",
             "dependsOn": [
-                "docker-build: release"
+                "docker-build: release-catalog"
             ],
             "dockerRun": {},
             "netCore": {

@@ -27,10 +27,10 @@
             "request": "attach"
         },
         {
-            "name": "Docker .NET Core Launch",
+            "name": "Docker .NET Core Launch Catalog",
             "type": "docker",
             "request": "launch",
-            "preLaunchTask": "docker-run: debug",
+            "preLaunchTask": "docker-run: debug-catalog",
             "netCore": {
                 "appProject": "${workspaceFolder}/src/Services/Catalog/Catalog.Api/Catalog.Api.csproj"
             }
