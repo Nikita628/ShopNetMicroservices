@@ -3,6 +3,17 @@
 version: '3.4'
 
 services:
+  portainer: # container management tool
+    image: portainer/portainer-ce
+    container_name: portainer
+    restart: always
+    ports:
+      - "9000:9000"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
+
+# catalog ---------------------------
   catalogdb:
     image: mongo
     container_name: catalogdb
@@ -17,6 +28,7 @@ services:
     build:
       context: .
       dockerfile: src/Services/Catalog/Dockerfile
+    container_name: catalogapi
     ports:
       - 5000:80
     environment:
@@ -24,5 +36,32 @@ services:
     depends_on:
       - catalogdb
 
+# basket ------------------------------
+  basketdb:
+    image: redis:alpine
+    container_name: basketdb
+    restart: always
+    ports:
+      - "6379:6379"
+
+  basketapi:
+    image: ${DOCKER_REGISTRY-}basketapi
+    build:
+      context: .
+      dockerfile: src/Services/Basket/Dockerfile
+    container_name: basketapi
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "CacheSettings:ConnectionString=basketdb:6379"
+      #- "GrpcSettings:DiscountUrl=http://discount.grpc"
+      #- "EventBusSettings:HostAddress=amqp://guest:guest@rabbitmq:5672"
+    depends_on:
+      - basketdb
+      #- rabbitmq
+    ports:
+      - "5001:80"
+
+# volumes ---------------------------
 volumes:
   mongo_data:
+  portainer_data:

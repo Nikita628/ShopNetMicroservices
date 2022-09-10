@@ -7,3 +7,5 @@ src/Services/Basket/Basket.Api/bin
 src/Services/Basket/Basket.Api/obj
 src/Services/Basket/Basket.Application/obj
 src/Services/Basket/Basket.Application/bin
+
+credentials.txt
