@@ -1,6 +1,7 @@
 {
     "version": "2.0.0",
     "tasks": [
+        // catalog -----------------------------------
         {
             "label": "build-catalog",
             "command": "dotnet",
@@ -94,6 +95,104 @@
             "netCore": {
                 "appProject": "${workspaceFolder}/src/Services/Catalog/Catalog.Api/Catalog.Api.csproj"
             }
+        },
+        // catalog end ----------------------------------------------------
+
+        // basket -----------------------------------------
+        {
+            "label": "build-basket",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/src/Services/Basket/Basket.Api/Basket.Api.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "publish-basket",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "publish",
+                "${workspaceFolder}/src/Services/Basket/Basket.Api/Basket.Api.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "watch-basket",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "watch",
+                "run",
+                "--project",
+                "${workspaceFolder}/src/Services/Basket/Basket.Api/Basket.Api.csproj"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "type": "docker-build",
+            "label": "docker-build: debug-basket",
+            "dependsOn": [
+                "build-basket"
+            ],
+            "dockerBuild": {
+                "tag": "shopnetmicroservices:dev",
+                "target": "base",
+                "dockerfile": "${workspaceFolder}/src/Services/Basket/Dockerfile",
+                "context": "${workspaceFolder}",
+                "pull": true,
+            },
+            "netCore": {
+                "appProject": "${workspaceFolder}/src/Services/Basket/Basket.Api/Basket.Api.csproj"
+            }
+        },
+        {
+            "type": "docker-build",
+            "label": "docker-build: release-basket",
+            "dependsOn": [
+                "build-basket"
+            ],
+            "dockerBuild": {
+                "tag": "shopnetmicroservices:latest",
+                "dockerfile": "${workspaceFolder}/src/Services/Basket/Dockerfile",
+                "context": "${workspaceFolder}",
+                "pull": true
+            },
+            "netCore": {
+                "appProject": "${workspaceFolder}/src/Services/Basket/Basket.Api/Basket.Api.csproj"
+            }
+        },
+        {
+            "type": "docker-run",
+            "label": "docker-run: debug-basket",
+            "dependsOn": [
+                "docker-build: debug-basket"
+            ],
+            "dockerRun": {
+                // "network": "" - set network here, for example to connect to a DB container
+            },
+            "netCore": {
+                "appProject": "${workspaceFolder}/src/Services/Basket/Basket.Api/Basket.Api.csproj",
+                "enableDebugging": true
+            }
+        },
+        {
+            "type": "docker-run",
+            "label": "docker-run: release-basket",
+            "dependsOn": [
+                "docker-build: release-basket"
+            ],
+            "dockerRun": {},
+            "netCore": {
+                "appProject": "${workspaceFolder}/src/Services/Basket/Basket.Api/Basket.Api.csproj"
+            }
         }
+        // basket end -----------------------------------
     ]
 }

@@ -2,10 +2,17 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": ".NET Core Launch (web)",
+            "name": ".NET Core Attach",
+            "type": "coreclr",
+            "request": "attach"
+        },
+
+        // catalog ----------------------------------------------
+        {
+            "name": "Launch (web) Catalog",
             "type": "coreclr",
             "request": "launch",
-            "preLaunchTask": "build",
+            "preLaunchTask": "build-catalog",
             "program": "${workspaceFolder}/src/Services/Catalog/Catalog.Api/bin/Debug/net6.0/Catalog.Api.exe",
             "args": [],
             "cwd": "${workspaceFolder}/src/Services/Catalog/Catalog.Api",
@@ -20,20 +27,39 @@
             "sourceFileMap": {
                 "/Views": "${workspaceFolder}/Views"
             }
-        },
+        },     
         {
-            "name": ".NET Core Attach",
-            "type": "coreclr",
-            "request": "attach"
-        },
-        {
-            "name": "Docker .NET Core Launch Catalog",
+            "name": "Docker Launch Catalog",
             "type": "docker",
             "request": "launch",
             "preLaunchTask": "docker-run: debug-catalog",
             "netCore": {
                 "appProject": "${workspaceFolder}/src/Services/Catalog/Catalog.Api/Catalog.Api.csproj"
             }
+        },
+        // catalog end ---------------------------------------------------------------
+
+        // basket --------------------------------------------
+        {
+            "name": "Launch (web) Basket",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build-basket",
+            "program": "${workspaceFolder}/src/Services/Basket/Basket.Api/bin/Debug/net6.0/Basket.Api.exe",
+            "args": [],
+            "cwd": "${workspaceFolder}/src/Services/Basket/Basket.Api",
+            "stopAtEntry": false,
+            "serverReadyAction": {
+                "action": "openExternally",
+                "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
+            },
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
+            },
+            "sourceFileMap": {
+                "/Views": "${workspaceFolder}/Views"
+            }
         }
+        // basket end --------------------------------------
     ]
 }
