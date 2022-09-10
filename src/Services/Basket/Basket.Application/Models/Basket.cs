@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Basket.Api.Models
+namespace Basket.Application.Models
 {
     public class Basket
     {

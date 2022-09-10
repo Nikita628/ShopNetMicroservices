@@ -1,4 +1,4 @@
-using Basket.Api.Models;
+using Basket.Application.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
