@@ -10,7 +10,8 @@ dotnet add Services/Catalog/Catalog.Api/Catalog.Api.csproj package Swashbuckle.A
 // to create a new project
 dotnet new webapi --name MyProjectName
 
-
+// to reference a project
+dotnet add app/app.csproj reference lib/lib.csproj
 
 // docker --------------------------------------------------------------
 
