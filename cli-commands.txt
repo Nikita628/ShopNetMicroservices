@@ -14,6 +14,7 @@ dotnet new webapi --name MyProjectName
 dotnet add app/app.csproj reference lib/lib.csproj
 
 // docker --------------------------------------------------------------
+host.docker.internal  - to connect to a db from other container
 
 // to run a docker container
 // -d means run in 'detached' mode (in the background, i.e. you won't see it in console)
@@ -22,6 +23,7 @@ docker run -d -p 6379:6379 --name my-container-name image-name
 
 // to build and run all containers defined in docker-compose file
 docker-compose -f docker-compose.yml -f docker-compose.debug.yml up -d
+docker-compose -f docker-compose.yml up -d
 
 // to stop all containers defined in docker-compose file
 docker-compose -f docker-compose.yml -f docker-compose.debug.yml down
@@ -31,3 +33,6 @@ docker network connect networkNameOrId containerNameOrId
 
 // to get comprehensive container info in a json format
 docker inspect containerNameOrId
+
+// to remove all unused volumes
+docker volume prune

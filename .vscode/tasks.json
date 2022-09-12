@@ -192,7 +192,104 @@
             "netCore": {
                 "appProject": "${workspaceFolder}/src/Services/Basket/Basket.Api/Basket.Api.csproj"
             }
-        }
+        },
         // basket end -----------------------------------
+
+        // discount -----------------------------------------
+        {
+            "label": "build-discount",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/src/Services/Discount/Discount.Api/Discount.Api.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "publish-discount",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "publish",
+                "${workspaceFolder}/src/Services/Discount/Discount.Api/Discount.Api.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "watch-discount",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "watch",
+                "run",
+                "--project",
+                "${workspaceFolder}/src/Services/Discount/Discount.Api/Discount.Api.csproj"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "type": "docker-build",
+            "label": "docker-build: debug-discount",
+            "dependsOn": [
+                "build-discount"
+            ],
+            "dockerBuild": {
+                "tag": "shopnetmicroservices:dev",
+                "target": "base",
+                "dockerfile": "${workspaceFolder}/src/Services/Discount/Dockerfile",
+                "context": "${workspaceFolder}",
+                "pull": true,
+            },
+            "netCore": {
+                "appProject": "${workspaceFolder}/src/Services/Discount/Discount.Api/Discount.Api.csproj"
+            }
+        },
+        {
+            "type": "docker-build",
+            "label": "docker-build: release-discount",
+            "dependsOn": [
+                "build-discount"
+            ],
+            "dockerBuild": {
+                "tag": "shopnetmicroservices:latest",
+                "dockerfile": "${workspaceFolder}/src/Services/Discount/Dockerfile",
+                "context": "${workspaceFolder}",
+                "pull": true
+            },
+            "netCore": {
+                "appProject": "${workspaceFolder}/src/Services/Discount/Discount.Api/Discount.Api.csproj"
+            }
+        },
+        {
+            "type": "docker-run",
+            "label": "docker-run: debug-discount",
+            "dependsOn": [
+                "docker-build: debug-discount"
+            ],
+            "dockerRun": {
+                // "network": "" - set network here, for example to connect to a DB container
+            },
+            "netCore": {
+                "appProject": "${workspaceFolder}/src/Services/Discount/Discount.Api/Discount.Api.csproj",
+                "enableDebugging": true
+            }
+        },
+        {
+            "type": "docker-run",
+            "label": "docker-run: release-discount",
+            "dependsOn": [
+                "docker-build: release-discount"
+            ],
+            "dockerRun": {},
+            "netCore": {
+                "appProject": "${workspaceFolder}/src/Services/Discount/Discount.Api/Discount.Api.csproj"
+            }
+        }
+        // discount end -----------------------------------
     ]
 }

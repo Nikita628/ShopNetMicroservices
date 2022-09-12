@@ -78,20 +78,24 @@ services:
     image: postgres
     container_name: discountdb
     environment:
+      - POSTGRES_DB=discountdb
       - POSTGRES_USER=admin
       - POSTGRES_PASSWORD=admin1234
-      - POSTGRES_DB=DiscountDb
     restart: always
     ports:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data/
 
-  discount.api:
-    container_name: discount.api
+  discountapi:
+    image: ${DOCKER_REGISTRY-}discountapi
+    build:
+      context: .
+      dockerfile: src/Services/Discount/Dockerfile
+    container_name: discountapi
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - "DatabaseSettings:ConnectionString=Server=discountdb;Port=5432;Database=DiscountDb;User Id=admin;Password=admin1234;"
+      - "DatabaseSettings:ConnectionString=Server=discountdb;Port=5432;Database=discountdb;User Id=admin;Password=admin1234;"
     depends_on:
       - discountdb
     ports:
