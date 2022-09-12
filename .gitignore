@@ -8,4 +8,9 @@ src/Services/Basket/Basket.Api/obj
 src/Services/Basket/Basket.Application/obj
 src/Services/Basket/Basket.Application/bin
 
+src/Services/Discount/Discount.Api/bin
+src/Services/Discount/Discount.Api/obj
+src/Services/Discount/Discount.Application/obj
+src/Services/Discount/Discount.Application/bin
+
 credentials.txt
