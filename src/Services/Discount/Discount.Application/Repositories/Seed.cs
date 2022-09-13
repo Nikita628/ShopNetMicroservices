@@ -25,12 +25,6 @@ namespace Discount.Application.Repository
 
         private static string isTableEmptyQuery = @"select NOT EXISTS(SELECT 1 FROM coupon)";
 
-        // private static string createDbQuery = @"CREATE DATABASE discountdb;";
-
-        // private static string isDbExistsQuery = @"select exists(
-        //     SELECT datname FROM pg_catalog.pg_database WHERE lower(datname) = lower('discountdb')
-        // );";
-
         private static List<Coupon> coupons = new List<Coupon>
         {
             new Coupon
@@ -49,9 +43,6 @@ namespace Discount.Application.Repository
 
         public static void SeedDb(DatabaseSettings settings)
         {
-            // CreateDb(settings);
-            Console.WriteLine(settings.ConnectionString);
-
             using var connection = new NpgsqlConnection(settings.ConnectionString);
 
             var isCouponTableExists = connection.ExecuteScalar<bool>(isTableExistsQuery);
@@ -71,19 +62,5 @@ namespace Discount.Application.Repository
                 });
             }
         }
-
-        // private static void CreateDb(DatabaseSettings settings)
-        // {
-        //     var connectionStringNoDb = settings.ConnectionString.Replace("Database=discountdb;", "");
-
-        //     using var connection = new NpgsqlConnection(connectionStringNoDb);
-
-        //     var isDbExists = connection.ExecuteScalar<bool>(isDbExistsQuery);
-
-        //     if (!isDbExists)
-        //     {
-        //         connection.Execute(createDbQuery);
-        //     }
-        // }
     }
 }
