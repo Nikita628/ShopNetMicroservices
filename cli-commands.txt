@@ -24,6 +24,7 @@ docker run -d -p 6379:6379 --name my-container-name image-name
 // to build and run all containers defined in docker-compose file
 docker-compose -f docker-compose.yml -f docker-compose.debug.yml up -d
 docker-compose -f docker-compose.yml up -d
+docker-compose -f docker-compose.yml up -d --build
 
 // to stop all containers defined in docker-compose file
 docker-compose -f docker-compose.yml -f docker-compose.debug.yml down

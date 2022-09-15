@@ -65,7 +65,7 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - "CacheSettings:ConnectionString=basketdb:6379"
-      #- "GrpcSettings:DiscountUrl=http://discount.grpc"
+      - "GrpcSettings:DiscountUri=http://discountgrpc"
       #- "EventBusSettings:HostAddress=amqp://guest:guest@rabbitmq:5672"
     depends_on:
       - basketdb
@@ -91,7 +91,7 @@ services:
     image: ${DOCKER_REGISTRY-}discountapi
     build:
       context: .
-      dockerfile: src/Services/Discount/Dockerfile
+      dockerfile: src/Services/Discount/Discount.Api/Dockerfile
     container_name: discountapi
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
@@ -100,6 +100,20 @@ services:
       - discountdb
     ports:
       - "5002:80"
+
+  discountgrpc:
+    image: ${DOCKER_REGISTRY-}discountgrpc
+    build:
+      context: .
+      dockerfile: src/Services/Discount/Discount.Grpc/Dockerfile
+    container_name: discountgrpc
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "DatabaseSettings:ConnectionString=Server=discountdb;Port=5432;Database=discountdb;User Id=admin;Password=admin1234;"
+    depends_on:
+      - discountdb
+    ports:
+      - "5003:80"
 
 # volumes ---------------------------
 volumes:

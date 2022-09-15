@@ -13,23 +13,22 @@ FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
 
 # copy project files and start restoring
-COPY ["src/Services/Basket/Basket.Api/Basket.Api.csproj", "Services/Basket/Basket.Api/"]
-COPY ["src/Services/Basket/Basket.Application/Basket.Application.csproj", "Services/Basket/Basket.Application/"]
 COPY ["src/Services/Discount/Discount.Grpc/Discount.Grpc.csproj", "Services/Discount/Discount.Grpc/"]
-RUN dotnet restore "Services/Basket/Basket.Api/Basket.Api.csproj"
+COPY ["src/Services/Discount/Discount.Application/Discount.Application.csproj", "Services/Discount/Discount.Application/"]
+RUN dotnet restore "Services/Discount/Discount.Grpc/Discount.Grpc.csproj"
 
 # copy the whole service - you need to copy everything into the project
-COPY ["src/Services/Basket", "Services/Basket"]
 COPY ["src/Services/Discount/Discount.Grpc", "Services/Discount/Discount.Grpc"]
+COPY ["src/Services/Discount/Discount.Application", "Services/Discount/Discount.Application"]
 
 # build and publish the service - here you need to step into the directory containing .csproj file
-WORKDIR /src/Services/Basket/Basket.Api
-RUN dotnet build "Basket.Api.csproj" -c Release -o /app/build
+WORKDIR /src/Services/Discount/Discount.Grpc
+RUN dotnet build "Discount.Grpc.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "Basket.Api.csproj" -c Release -o /app/publish
+RUN dotnet publish "Discount.Grpc.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "Basket.Api.dll"]
+ENTRYPOINT ["dotnet", "Discount.Grpc.dll"]

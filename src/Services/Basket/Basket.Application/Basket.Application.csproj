@@ -1,5 +1,4 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
@@ -7,8 +6,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Google.Protobuf" Version="3.13.0" />
+    <PackageReference Include="Grpc.Net.ClientFactory" Version="2.32.0" />
+    <PackageReference Include="Grpc.Tools" Version="2.32.0" PrivateAssets="All" />
     <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="6.0.8" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Protobuf Include="..\..\Discount\Discount.Grpc\Protos\discount.proto" GrpcServices="Client" Link="Protos\discount.proto" />
+  </ItemGroup>
 </Project>

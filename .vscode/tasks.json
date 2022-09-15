@@ -175,7 +175,7 @@
                 "docker-build: debug-basket"
             ],
             "dockerRun": {
-                // "network": "" - set network here, for example to connect to a DB container
+                "network": "f0bb0b4aac7177ee91ffc44c84e0f205e04c1aa8b7219468d82a00e3f3bf5923"
             },
             "netCore": {
                 "appProject": "${workspaceFolder}/src/Services/Basket/Basket.Api/Basket.Api.csproj",

@@ -18,7 +18,8 @@ COPY ["src/Services/Discount/Discount.Application/Discount.Application.csproj", 
 RUN dotnet restore "Services/Discount/Discount.Api/Discount.Api.csproj"
 
 # copy the whole service - you need to copy everything into the project
-COPY ["src/Services/Discount", "Services/Discount"]
+COPY ["src/Services/Discount/Discount.Api", "Services/Discount/Discount.Api"]
+COPY ["src/Services/Discount/Discount.Application", "Services/Discount/Discount.Application"]
 
 # build and publish the service - here you need to step into the directory containing .csproj file
 WORKDIR /src/Services/Discount/Discount.Api
