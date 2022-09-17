@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using BasketModel = Basket.Application.Models.Basket;
 
-namespace Basket.API.Controllers
+namespace Basket.Api.Controllers
 {
     [ApiController]
     [Route("api/v1/[controller]")]

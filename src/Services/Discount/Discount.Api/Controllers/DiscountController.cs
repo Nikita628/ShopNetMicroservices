@@ -3,7 +3,7 @@ using Discount.Application.Repository;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
-namespace Discount.API.Controllers
+namespace Discount.Api.Controllers
 {
     [ApiController]
     [Route("api/v1/[controller]")]

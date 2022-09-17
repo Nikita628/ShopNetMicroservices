@@ -29,14 +29,14 @@ namespace Order.Application.Features.Orders.Commands
 
             _logger.LogInformation($"Order {newOrder.Id} is successfully created.");
 
-            await SendMail(newOrder);
+            //await SendMail(newOrder);
 
             return newOrder.Id;
         }
 
         private async Task SendMail(OrderModel order)
         {
-            var email = new Email() { To = "ezozkme@gmail.com", Body = $"Order was created.", Subject = "Order was created" };
+            var email = new Email() { To = "bortnikov.nik22@gmail.com", Body = $"Order was created.", Subject = "Order was created" };
 
             try
             {

@@ -1,4 +1,6 @@
 using Order.Application.Utils;
+using Order.Infrastructure.Utils;
+using Order.Infrastructure.Database;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,9 +11,23 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+
+builder.Services.AddAutoMapper(
+    typeof(Order.Application.Utils.ApplicationServiceRegistration).Assembly, 
+    typeof(Order.Infrastructure.Utils.InfrastructureServiceRegistration).Assembly
+);
+
 builder.Services.AddApplicationServices();
+builder.Services.AddInfrastructureServices(builder.Configuration);
 
 var app = builder.Build();
+
+using(var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<OrderContext>();
+    var logger = scope.ServiceProvider.GetRequiredService<ILogger<OrderContextSeed>>();
+    OrderContextSeed.SeedAsync(dbContext, logger);
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
