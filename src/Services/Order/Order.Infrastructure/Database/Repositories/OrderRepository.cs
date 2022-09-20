@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Order.Application.Contracts.Infrastructure;
 using Order.Core.Models;
 using OrderDbModel = Order.Infrastructure.Database.Models.Order;
-using OrderModel = Order.Core.Models.Order;
+using OrderCoreModel = Order.Core.Models.Order;
 
 namespace Order.Infrastructure.Database.Repositories
 {
@@ -18,15 +18,15 @@ namespace Order.Infrastructure.Database.Repositories
             _mapper = mapper;
         }
 
-        public async Task<OrderModel> AddAsync(OrderModel entity)
+        public async Task<OrderCoreModel> AddAsync(OrderCoreModel model)
         {
-            var dbModel = _mapper.Map<OrderDbModel>(entity);
+            var dbModel = _mapper.Map<OrderDbModel>(model);
 
             _dbContext.Orders.Add(dbModel);
 
             await _dbContext.SaveChangesAsync();
 
-            return entity;
+            return await GetByIdAsync(dbModel.Id);
         }
 
         public async Task DeleteAsync(int id)
@@ -39,32 +39,32 @@ namespace Order.Infrastructure.Database.Repositories
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task<IReadOnlyList<OrderModel>> GetAllAsync()
+        public async Task<IReadOnlyList<OrderCoreModel>> GetAllAsync()
         {
             var list = await _dbContext.Orders.ToListAsync();
 
-            return _mapper.Map<List<OrderModel>>(list);
+            return _mapper.Map<List<OrderCoreModel>>(list);
         }
 
-        public async Task<OrderModel> GetByIdAsync(int id)
+        public async Task<OrderCoreModel> GetByIdAsync(int id)
         {
             var entity = await _dbContext.Orders.FindAsync(id);
 
-            return _mapper.Map<OrderModel>(entity);
+            return _mapper.Map<OrderCoreModel>(entity);
         }
 
-        public async Task<IEnumerable<OrderModel>> GetOrdersByUserName(string userName)
+        public async Task<IEnumerable<OrderCoreModel>> GetOrdersByUserName(string userName)
         {
             var orderList = await _dbContext.Orders
                                     .Where(o => o.UserName == userName)
                                     .ToListAsync();
 
-            return _mapper.Map<List<OrderModel>>(orderList);
+            return _mapper.Map<List<OrderCoreModel>>(orderList);
         }
 
-        public async Task<IReadOnlyList<OrderModel>> Search(OrderSearchParam searchParam)
+        public async Task<IReadOnlyList<OrderCoreModel>> Search(OrderSearchParam searchParam)
         {
-            IQueryable<OrderModel> query = _dbContext.Set<OrderModel>();
+            IQueryable<OrderCoreModel> query = _dbContext.Set<OrderCoreModel>();
 
             if (searchParam.Id != null)
             {
@@ -79,7 +79,7 @@ namespace Order.Infrastructure.Database.Repositories
             return await query.ToListAsync();
         }
 
-        public async Task UpdateAsync(OrderModel model)
+        public async Task UpdateAsync(OrderCoreModel model)
         {
             var entity = await _dbContext.FindAsync<OrderDbModel>(model.Id);
 
