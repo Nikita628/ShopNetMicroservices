@@ -25,6 +25,14 @@ services:
     volumes:
       - pgadmin_data:/root/.pgadmin
 
+  rabbitmq: # message broker
+    image: rabbitmq:3-management-alpine
+    container_name: rabbitmq
+    restart: always
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+
 # catalog ---------------------------
   catalogdb:
     image: mongo
@@ -66,10 +74,10 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - "CacheSettings:ConnectionString=basketdb:6379"
       - "GrpcSettings:DiscountUri=http://discountgrpc"
-      #- "EventBusSettings:HostAddress=amqp://guest:guest@rabbitmq:5672"
+      - "EventBusSettings:HostAddress=amqp://guest:guest@rabbitmq:5672"
     depends_on:
       - basketdb
-      #- rabbitmq
+      - rabbitmq
     ports:
       - "5001:80"
 
@@ -134,9 +142,11 @@ services:
     container_name: orderapi
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - "ConnectionStrings:OrderConnectionString=Server=orderdb;Database=OrderDb;User Id=sa;Password=Admin12345678"  
+      - "ConnectionStrings:OrderConnectionString=Server=orderdb;Database=OrderDb;User Id=sa;Password=Admin12345678"
+      - "EventBusSettings:HostAddress=amqp://guest:guest@rabbitmq:5672"
     depends_on:
       - orderdb
+      - rabbitmq
     ports:
       - "5004:80"
       
