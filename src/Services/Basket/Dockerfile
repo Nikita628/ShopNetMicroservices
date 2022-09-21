@@ -16,11 +16,13 @@ WORKDIR /src
 COPY ["src/Services/Basket/Basket.Api/Basket.Api.csproj", "Services/Basket/Basket.Api/"]
 COPY ["src/Services/Basket/Basket.Application/Basket.Application.csproj", "Services/Basket/Basket.Application/"]
 COPY ["src/Services/Discount/Discount.Grpc/Discount.Grpc.csproj", "Services/Discount/Discount.Grpc/"]
+COPY ["src/Shared/EventBus/EventBus.csproj", "Shared/EventBus/"]
 RUN dotnet restore "Services/Basket/Basket.Api/Basket.Api.csproj"
 
 # copy the whole service - you need to copy everything into the project
 COPY ["src/Services/Basket", "Services/Basket"]
 COPY ["src/Services/Discount/Discount.Grpc", "Services/Discount/Discount.Grpc"]
+COPY ["src/Shared/EventBus", "Shared/EventBus"]
 
 # build and publish the service - here you need to step into the directory containing .csproj file
 WORKDIR /src/Services/Basket/Basket.Api

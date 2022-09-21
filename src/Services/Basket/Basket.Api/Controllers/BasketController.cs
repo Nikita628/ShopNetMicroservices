@@ -71,7 +71,7 @@ namespace Basket.Api.Controllers
 
             if (basket is null)
             {
-                return BadRequest();
+                return BadRequest("Basket not found");
             }
 
             var eventMessage = _mapper.Map<BasketCheckoutEvent>(basketCheckout);
