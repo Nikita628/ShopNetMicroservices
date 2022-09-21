@@ -2,6 +2,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Order.Application\Order.Application.csproj" />
+    <ProjectReference Include="..\..\..\Shared\EventBus\EventBus.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -16,7 +17,7 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="SendGrid" Version="9.28.1" />
-    
+    <PackageReference Include="MassTransit.RabbitMQ" Version="8.0.6" />
   </ItemGroup>
 
   <PropertyGroup>
