@@ -149,7 +149,23 @@ services:
       - rabbitmq
     ports:
       - "5004:80"
-      
+
+# ocelot --------------------------------------------------
+  ocelotapigw:
+    image: ${DOCKER_REGISTRY-}ocelotapigw
+    build:
+      context: .
+      dockerfile: src/ApiGateways/Ocelot.ApiGateway/Dockerfile
+    container_name: ocelotapigw
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    depends_on:
+      - catalogapi
+      - basketapi
+      - discountapi
+      - orderapi
+    ports:
+      - "5005:80"
 # volumes ---------------------------
 volumes:
   mongo_data:
