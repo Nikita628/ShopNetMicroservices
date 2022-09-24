@@ -12,22 +12,22 @@ namespace Shop.Aggregator.Services
             _client = client ?? throw new ArgumentNullException(nameof(client));
         }
 
-        public async Task<IEnumerable<Catalog>> GetCatalog()
+        public async Task<IEnumerable<Product>> GetProducts()
         {
-            var response = await _client.GetAsync("/api/v1/Catalog");
-            return await response.ReadContentAs<List<Catalog>>();
+            var response = await _client.GetAsync("/api/v1/Product");
+            return await response.ReadContentAs<List<Product>>();
         }
 
-        public async Task<Catalog> GetCatalog(string id)
+        public async Task<Product> GetProduct(string id)
         {
-            var response = await _client.GetAsync($"/api/v1/Catalog/{id}");
-            return await response.ReadContentAs<Catalog>();
+            var response = await _client.GetAsync($"/api/v1/Product/{id}");
+            return await response.ReadContentAs<Product>();
         }
 
-        public async Task<IEnumerable<Catalog>> GetCatalogByCategory(string category)
+        public async Task<IEnumerable<Product>> GetProductsByCategory(string category)
         {
-            var response = await _client.GetAsync($"/api/v1/Catalog/GetProductByCategory/{category}");
-            return await response.ReadContentAs<List<Catalog>>();
+            var response = await _client.GetAsync($"/api/v1/Product/GetProductByCategory/{category}");
+            return await response.ReadContentAs<List<Product>>();
         }
     }
 }

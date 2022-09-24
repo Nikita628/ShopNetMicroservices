@@ -4,8 +4,8 @@ namespace Shop.Aggregator.Services
 {
     public interface ICatalogService
     {
-        Task<IEnumerable<Catalog>> GetCatalog();
-        Task<IEnumerable<Catalog>> GetCatalogByCategory(string category);
-        Task<Catalog> GetCatalog(string id);
+        Task<IEnumerable<Product>> GetProducts();
+        Task<IEnumerable<Product>> GetProductsByCategory(string category);
+        Task<Product> GetProduct(string id);
     }
 }

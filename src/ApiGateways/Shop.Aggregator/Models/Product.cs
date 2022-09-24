@@ -1,6 +1,6 @@
 namespace Shop.Aggregator.Models
 {
-    public class Catalog
+    public class Product
     {
         public string Id { get; set; }
         public string Name { get; set; }
