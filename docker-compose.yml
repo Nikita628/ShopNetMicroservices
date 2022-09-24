@@ -166,6 +166,26 @@ services:
       - orderapi
     ports:
       - "5005:80"
+
+# shop aggregator -------------------------------------------
+  shopaggregator:
+    image: ${DOCKER_REGISTRY-}shopaggregator
+    build:
+      context: .
+      dockerfile: src/ApiGateways/Shop.Aggregator/Dockerfile
+    container_name: shopaggregator
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "ApiSettings:CatalogUrl=http://catalogapi"
+      - "ApiSettings:BasketUrl=http://basketapi"
+      - "ApiSettings:OrderingUrl=http://orderapi"
+    depends_on:
+      - catalogapi
+      - basketapi
+      - orderapi
+    ports:
+      - "5006:80"
+
 # volumes ---------------------------
 volumes:
   mongo_data:
