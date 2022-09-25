@@ -186,6 +186,25 @@ services:
     ports:
       - "5006:80"
 
+# shop webapp -------------------------------------------------
+  shopwebapp:
+    image: ${DOCKER_REGISTRY-}shopwebapp
+    build:
+      context: .
+      dockerfile: src/WebApps/Shop.WebApp/Dockerfile
+    container_name: shopwebapp
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "ApiSettings:GatewayAddress=http://ocelotapigw"
+    depends_on:
+      - ocelotapigw
+      - catalogapi
+      - basketapi
+      - discountapi
+      - orderapi
+    ports:
+      - "5007:80"
+
 # volumes ---------------------------
 volumes:
   mongo_data:

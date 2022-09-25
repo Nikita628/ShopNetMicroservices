@@ -13,7 +13,7 @@ FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
 
 # copy project files and start restoring
-COPY ["src/WebApps/Shop.WebApp/Shop.WebApp.csproj", "WebApps/Shop.WebApp"]
+COPY ["src/WebApps/Shop.WebApp/Shop.WebApp.csproj", "WebApps/Shop.WebApp/"]
 RUN dotnet restore "WebApps/Shop.WebApp/Shop.WebApp.csproj"
 
 # copy the whole service - you need to copy everything into the project

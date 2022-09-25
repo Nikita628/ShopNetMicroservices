@@ -34,7 +34,7 @@ namespace Shop.Aggregator.Controllers
                 item.Category = product.Category;
                 item.Summary = product.Summary;
                 item.Description = product.Description;
-                item.ImageFile = product.ImageFile;
+                item.Image = product.Image;
             }
 
             var orders = await _orderService.GetOrdersByUserName(userName);
