@@ -25,6 +25,8 @@ Each service has its own Dockerfile, and the whole app is fully contanerized wit
 Some infrastructure management tools are added and running in docker containers as well,
 such as - Portainer (container management tool), PgAdmin (Postgres DB management tool).
 
+Main languages and technologies - C# .Net6, Docker, Entity Framework, MediatR + CQRS.
+
 # To run the app:
 - make sure that Docker is up and running on your local machine
 - docker-compose -f docker-compose.yml up -d
