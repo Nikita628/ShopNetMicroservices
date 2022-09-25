@@ -1,9 +1,9 @@
-﻿using AspnetRunBasics.Models;
-using AspnetRunBasics.Services;
+﻿using Shop.WebApp.Models;
+using Shop.WebApp.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace AspnetRunBasics
+namespace Shop.WebApp
 {
     public class CheckOutModel : PageModel
     {

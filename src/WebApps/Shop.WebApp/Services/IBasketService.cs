@@ -1,6 +1,6 @@
-﻿using AspnetRunBasics.Models;
+﻿using Shop.WebApp.Models;
 
-namespace AspnetRunBasics.Services
+namespace Shop.WebApp.Services
 {
     public interface IBasketService
     {

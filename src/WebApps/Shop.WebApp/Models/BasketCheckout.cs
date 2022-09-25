@@ -1,4 +1,4 @@
-﻿namespace AspnetRunBasics.Models
+﻿namespace Shop.WebApp.Models
 {
     public class BasketCheckout
     {

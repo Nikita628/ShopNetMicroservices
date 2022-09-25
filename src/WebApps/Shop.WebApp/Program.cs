@@ -1,4 +1,4 @@
-using AspnetRunBasics.Services;
+using Shop.WebApp.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 

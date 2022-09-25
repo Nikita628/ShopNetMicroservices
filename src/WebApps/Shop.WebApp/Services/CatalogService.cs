@@ -1,7 +1,7 @@
-﻿using AspnetRunBasics.Extensions;
-using AspnetRunBasics.Models;
+﻿using Shop.WebApp.Extensions;
+using Shop.WebApp.Models;
 
-namespace AspnetRunBasics.Services
+namespace Shop.WebApp.Services
 {
     public class CatalogService : ICatalogService
     {
